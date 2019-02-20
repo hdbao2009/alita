@@ -19,7 +19,7 @@ var staticDir = express.static(
 app.use(staticDir);
 
 mongoose.set('useCreateIndex', true);
-mongoose.connect('mongodb://heroku_zclj368x:eb2381eqhpa9ulemp3f0jd9g01@ds139082.mlab.com:39082/heroku_zclj368x', {
+mongoose.connect('mongodb://alita:baohuynh2009@ds139082.mlab.com:39082/heroku_zclj368x', {
 	useNewUrlParser: true
 });
 mongoose.Promise = global.Promise;
