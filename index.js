@@ -30,14 +30,19 @@ app.listen(port, () => {
   console.log('ahihi');
 });
 
+app.use(express.static('dist'));
+app.get('*', (request, response) => {
+response.sendFile(path.join(__dirname, 'dist', 'index.html'));
+});
+
 app.use(cors());
 app.use(bodyParser.json());
 
 app.use('/posts', (req, res) => {
 	res.send("posts");
 });
-app.use('/tags', tagsRoutes);
-app.use('/categories', categoryRoutes);
+// app.use('/tags', tagsRoutes);
+// app.use('/categories', categoryRoutes);
 
 
 
