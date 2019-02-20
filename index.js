@@ -18,11 +18,11 @@ var staticDir = express.static(
 );
 app.use(staticDir);
 
-// mongoose.set('useCreateIndex', true);
-// mongoose.connect('mongodb://heroku_dlvd3rnn:apf38654g5133ttdqrdnt9p4q4@ds341825.mlab.com:41825/heroku_dlvd3rnn', {
-// 	useNewUrlParser: true
-// });
-// mongoose.Promise = global.Promise;
+mongoose.set('useCreateIndex', true);
+mongoose.connect('mongodb://heroku_dlvd3rnn:apf38654g5133ttdqrdnt9p4q4@ds341825.mlab.com:41825/heroku_dlvd3rnn', {
+	useNewUrlParser: true
+});
+mongoose.Promise = global.Promise;
 
 app.use(cors());
 app.use(bodyParser.json());
