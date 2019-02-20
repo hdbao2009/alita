@@ -31,7 +31,6 @@ app.use(bodyParser.json());
 app.use('/posts', postsRoutes);
 app.use('/tags', tagsRoutes);
 app.use('/categories', categoryRoutes);
-const port = process.env.PORT || 8000;
 
 app.listen(port, () => {
   console.log('ahihi');
