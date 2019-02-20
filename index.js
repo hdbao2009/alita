@@ -13,6 +13,7 @@ let categoryRoutes = require('./router/categoryRouter');
 
 var app = express();
 
+<<<<<<< HEAD
 var staticDir = express.static(
 	path.resolve(__dirname, 'public')
 );
@@ -30,6 +31,9 @@ app.use(bodyParser.json());
 app.use('/posts', postsRoutes);
 app.use('/tags', tagsRoutes);
 app.use('/categories', categoryRoutes);
+=======
+const port = process.env.PORT || 8000;
+>>>>>>> b66c46a2a02db0de3bdf70e0749b274ced4a95b9
 
 app.listen(port, () => {
   console.log('ahihi');
