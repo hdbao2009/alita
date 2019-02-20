@@ -29,7 +29,9 @@ mongoose.Promise = global.Promise;
 app.use(cors());
 app.use(bodyParser.json());
 
-app.use('/posts', postsRoutes);
+app.use('/posts', (req, res) => {
+	res.send("posts");
+});
 app.use('/tags', tagsRoutes);
 app.use('/categories', categoryRoutes);
 
