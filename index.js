@@ -19,8 +19,7 @@ var staticDir = express.static(
 app.use(staticDir);
 
 mongoose.set('useCreateIndex', true);
-// mongodb://heroku_dlvd3rnn:apf38654g5133ttdqrdnt9p4q4@ds341825.mlab.com:41825/heroku_dlvd3rnn
-mongoose.connect('mongodb://localhost:27017/cocapepsi', {
+mongoose.connect('mongodb://heroku_zclj368x:eb2381eqhpa9ulemp3f0jd9g01@ds139082.mlab.com:39082/heroku_zclj368x', {
 	useNewUrlParser: true
 });
 mongoose.Promise = global.Promise;
