@@ -26,6 +26,10 @@ mongoose.connect('mongodb://admin:baohuynh2009@ds139082.mlab.com:39082/heroku_zc
 });
 mongoose.Promise = global.Promise;
 
+app.listen(port, () => {
+  console.log('ahihi');
+});
+
 app.use(cors());
 app.use(bodyParser.json());
 
@@ -35,9 +39,7 @@ app.use('/posts', (req, res) => {
 app.use('/tags', tagsRoutes);
 app.use('/categories', categoryRoutes);
 
-app.listen(port, () => {
-  console.log('ahihi');
-});
+
 
 app.get('/', (req, res) => {
 	res.send('Hello world');
