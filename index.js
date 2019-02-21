@@ -18,38 +18,21 @@ var staticDir = express.static(
 );
 app.use(staticDir);
 
-// mongoose.set('useCreateIndex', true);
-// mongoose.connect('mongodb://admin:baohuynh2009@ds139082.mlab.com:39082/heroku_zclj368x', {
-// 	useNewUrlParser: true
-// }).then(() => {
-// 	console.log("connect duoc roi");
+// app.use(express.static('dist'));
+// app.get('*', (request, response) => {
+// response.sendFile(path.join(__dirname, 'dist', 'index.html'));
 // });
-// mongoose.Promise = global.Promise;
-
-app.listen(port, () => {
-  console.log('ahihi');
-});
-
-app.use(express.static('dist'));
-
-app.use('/tags', tagsRoutes);
-
-app.get('*', (request, response) => {
-response.sendFile(path.join(__dirname, 'dist', 'index.html'));
-});
 
 app.use(cors());
 app.use(bodyParser.json());
 
-
-
-
-
-// app.get('/', postsRoutes);
-app.get('/', (req, res) => {
-	res.send("adasdasdasdss");
+app.get('/',(req, res) => {
+	res.send("Home");
+})
+app.get('/posts',(req, res) => {
+	res.send("Posts");
 })
 
-// app.use('/categories', categoryRoutes);
-
-
+app.listen(port, () => {
+  console.log('ahihi');
+});
