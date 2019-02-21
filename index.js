@@ -15,13 +15,14 @@ app.use(staticDir);
 app.use(cors());
 app.use(bodyParser.json());
 
+app.get('/',(req, res) => {
+	res.send("Home");
+});
+
 app.use('/posts', postsRoutes);
 app.use('/tags', tagsRoutes);
 app.use('/categories', categoryRoutes);
 
-app.get('/',(req, res) => {
-	res.send("Home");
-})
 
 app.listen(port, () => {
 	console.log('ahihi');
