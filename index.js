@@ -38,14 +38,16 @@ response.sendFile(path.join(__dirname, 'dist', 'index.html'));
 app.use(cors());
 app.use(bodyParser.json());
 
-app.use('/posts', (req, res) => {
-	res.send("posts");
-});
-// app.use('/tags', tagsRoutes);
-// app.use('/categories', categoryRoutes);
+
 
 
 
 app.get('/', (req, res) => {
 	res.send('Hello world');
 })
+
+app.use('/posts', (req, res) => {
+	res.send("posts");
+});
+// app.use('/tags', tagsRoutes);
+// app.use('/categories', categoryRoutes);
