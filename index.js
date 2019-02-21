@@ -18,13 +18,13 @@ var staticDir = express.static(
 );
 app.use(staticDir);
 
-mongoose.set('useCreateIndex', true);
-mongoose.connect('mongodb://admin:baohuynh2009@ds139082.mlab.com:39082/heroku_zclj368x', {
-	useNewUrlParser: true
-}).then(() => {
-	console.log("connect duoc roi");
-});
-mongoose.Promise = global.Promise;
+// mongoose.set('useCreateIndex', true);
+// mongoose.connect('mongodb://admin:baohuynh2009@ds139082.mlab.com:39082/heroku_zclj368x', {
+// 	useNewUrlParser: true
+// }).then(() => {
+// 	console.log("connect duoc roi");
+// });
+// mongoose.Promise = global.Promise;
 
 app.listen(port, () => {
   console.log('ahihi');
