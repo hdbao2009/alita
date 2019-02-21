@@ -31,6 +31,9 @@ app.listen(port, () => {
 });
 
 app.use(express.static('dist'));
+
+app.use('/tags', tagsRoutes);
+
 app.get('*', (request, response) => {
 response.sendFile(path.join(__dirname, 'dist', 'index.html'));
 });
@@ -45,7 +48,7 @@ app.use(bodyParser.json());
 app.get('/', (req, res) => {
 	res.send('Hello world');
 })
-app.use('/tags', tagsRoutes);
+
 // app.use('/categories', categoryRoutes);
 
 
