@@ -1,4 +1,9 @@
-var express = require('express');
+var express = require('express'),
+		bodyParser = require('body-parser'),
+		mongoose = require('mongoose'),
+		cors = require('cors'),
+		multer = require('multer'),
+		path = require('path');
 const port = process.env.PORT || 8000;
 
 var app = express();
