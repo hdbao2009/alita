@@ -5,20 +5,21 @@ let moment = require('moment');
 module.exports = {
 	// Show list posts
 	list: (req, res, next) => {
-		postsModel.find()
-			.select()
-			.exec().then(result => {
+		res.status(200).json({message: "asdsadsa"});
+		// postsModel.find()
+		// 	.select()
+		// 	.exec().then(result => {
 
-				const reponse = {
-					posts: result,
-					count: result.length
-				}
-				res.status(200).json(reponse);
-			}).catch(err => {
-				res.status(500).json({
-					error: err
-				})
-			})
+		// 		const reponse = {
+		// 			posts: result,
+		// 			count: result.length
+		// 		}
+		// 		res.status(200).json();
+		// 	}).catch(err => {
+		// 		res.status(500).json({
+		// 			error: err
+		// 		})
+		// 	})
 	},
 
 	// Create posts
