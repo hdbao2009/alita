@@ -46,7 +46,7 @@ app.get('/', (req, res) => {
 	res.send('Hello world');
 })
 
-app.use('/posts', (req, res) => {
+app.get('/posts', (req, res) => {
 	res.send("posts");
 });
 // app.use('/tags', tagsRoutes);
