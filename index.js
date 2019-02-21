@@ -45,9 +45,7 @@ app.use(bodyParser.json());
 app.get('/', (req, res) => {
 	res.send('Hello world');
 })
-
-app.get('/posts', (req, res) => {
-	res.send("posts");
-});
-// app.use('/tags', tagsRoutes);
+app.use('/tags', tagsRoutes);
 // app.use('/categories', categoryRoutes);
+
+
