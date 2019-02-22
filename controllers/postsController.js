@@ -14,7 +14,7 @@ module.exports = {
 					posts: result,
 					count: result.length
 				}
-				res.status(200).json();
+				res.status(200).json(reponse);
 			}).catch(err => {
 				res.status(500).json({
 					error: err
