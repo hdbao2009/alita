@@ -5,6 +5,7 @@ let categoryController = require('../controllers/categoriesController');
 router.get('/', categoryController.list);
 router.get('/:id', categoryController.getCategoryById);
 router.post('/createCategory', categoryController.create);
+router.patch('/:id',categoryController.update);
 router.delete('/:id', categoryController.deleteCategoryById);
 router.get('/getListPostsByCateId/:id', categoryController.getListPostsByCateId);
 

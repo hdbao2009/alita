@@ -21,6 +21,24 @@ module.exports = {
 			});
 	},
 
+	update: (req, res) => {
+		const id = req.params.id;
+		categoriesModel
+		.update({_id: id}, {$set: req.body})
+		.then(result => {
+			res.status(200).json({
+				message: "update complete",
+				success: result,
+				status: 1
+			})
+		}).catch(err => {
+			res.status(500).json({
+				message: '',
+				error: err
+			})
+		})
+	},
+
 	// Get Tag by id
 	getCategoryById: (req, res) => {
 		let id = req.params.id;
