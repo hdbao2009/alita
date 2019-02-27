@@ -10,20 +10,8 @@ module.exports = {
 			.then(result => {
 				res.status(200).json({
 					count: result.length,
-					message: result > 0 ? 'Get All List Categories' : 'Not List Categories',
-					categories: result.map(category => {
-						return {
-							category,
-							requestGET: {
-								type: 'GET',
-								url: en_point.link.Categories + category._id
-							}, 
-							requestDEL: {
-								type: 'DELETE',
-								url: en_point.link.Categories + category._id
-							}
-						}
-					})
+					message: result.length > 0 ? 'Get All List Categories' : 'Not List Categories',
+					result
 				})
 			}).catch(err => {
 				res.status(500).json({
@@ -42,11 +30,7 @@ module.exports = {
 			.then(result => {
 				if (result) {
 					res.status(200).json({
-						success: result,
-						request: {
-							type: 'GET',
-							url: en_point.link.Categories
-						}
+						result
 					})
 				} else {
 					res.status(404).json({
@@ -69,14 +53,7 @@ module.exports = {
 			res.status(200).json({
 				message: 'Created Category Successfully',
 				success: result,
-				requestALL: {
-					type: 'GET',
-					url: en_point.link.Categories
-				},
-				requestGET: {
-					type: 'GET',
-					url: en_point.link.Categories + result._id
-				}
+				status: 1
 			});
 		}).catch(error => {
 			res.status(500).json({
@@ -95,13 +72,7 @@ module.exports = {
 		.then(result => {
 			res.status(200).json({
 				message: 'Deleted Category Successfully',
-				request: {
-					type: 'POST',
-					url: en_point.link.Categories,
-					body: {
-						name: 'String'
-					}
-				}
+				status: 1
 			})
 		}).catch(err => {
 			res.status(500).json({
@@ -117,19 +88,14 @@ module.exports = {
     postsModel.find().then(posts => {
       posts.forEach((element,index)=>{
         if(element.idCategory == id) {
-          console.log(element);
           listFilter.push(element); return;
         } 
       })
       res.status(200).json({
         count: listFilter.length,
         message: 'list Posts after filter by category ID',
-        success: listFilter.map(post => {
-          return {
-            post,
-            request: { type: 'GET', url: en_point.link.Posts + post._id }
-          }
-        })
+				success: listFilter,
+				status: 1
       })
     }).catch(err => {
       res.status(500).json({
