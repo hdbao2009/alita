@@ -1,11 +1,14 @@
 let postsModel = require("../models/postsModel");
 let en_point = require("../constant");
 let moment = require('moment');
+let _ = require('lodash');
+let path = require('path')
+const FroalaEditor = require('wysiwyg-editor-node-sdk/lib/froalaEditor');
 
 module.exports = {
 	// Show list posts
 	list: (req, res, next) => {
-// 		res.status(200).json({message: "asdsadsa"});
+		// 		res.status(200).json({message: "asdsadsa"});
 		postsModel.find()
 			.select()
 			.exec().then(result => {
@@ -78,42 +81,62 @@ module.exports = {
 		});
 	},
 
+	uploadImg: function (req, res) {
+		// Store image.
+		FroalaEditor.Image.upload(req, '/public/uploads/', function (err, data) {
+			// Return data.
+			if (err) {
+				return res.send(JSON.stringify(err));
+			}
+			console.log(document.URL);
+			let link = process.env.LINK_UPLOAD || 'http://localhost:8000'
+			data['link'] = `${link}${data['link'].replace("/public",'')}`
+			res.send(data);
+		});
+	},
+
 	// Update posts by Id
 	updatePostById: (req, res) => {
 		let id = req.params.id;
 		console.log(req.body);
-		postsModel.update({_id: id}, {$set: req.body})
-		.exec().then(result => {
-			res.status(200).json({
-				message: 'Updated Posts Successfully',
-				request: {
-					type: 'GET',
-					url: en_point.link.Posts + id
-				}
+		postsModel.update({
+				_id: id
+			}, {
+				$set: req.body
 			})
-		}).catch(err => {
-			res.status(500).json({
-				message: '',
-				error: err
-			})
-		});
+			.exec().then(result => {
+				res.status(200).json({
+					message: 'Updated Posts Successfully',
+					request: {
+						type: 'GET',
+						url: en_point.link.Posts + id
+					}
+				})
+			}).catch(err => {
+				res.status(500).json({
+					message: '',
+					error: err
+				})
+			});
 	},
 
 	// Delete post by Id
 	deletePostById: (req, res) => {
 		let id = req.params.id;
-		postsModel.remove({_id: id})
-		.exec()
-		.then(result => {
-			res.status(200).json({
-				message: 'Deleted Post Successfully',
-				status: 1
+		postsModel.remove({
+				_id: id
 			})
-		}).catch(err => {
-			res.status(500).json({
-				message: '',
-				error: err
-			})
-		});
+			.exec()
+			.then(result => {
+				res.status(200).json({
+					message: 'Deleted Post Successfully',
+					status: 1
+				})
+			}).catch(err => {
+				res.status(500).json({
+					message: '',
+					error: err
+				})
+			});
 	}
 }

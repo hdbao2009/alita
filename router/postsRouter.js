@@ -9,5 +9,6 @@ router.get('/:id', postsController.getPostsById);
 router.patch('/:id', postsController.updatePostById);
 router.delete('/:id', postsController.deletePostById);
 router.post('/api/upload',upload.array('file',3), postsController.upload);
+router.post('/upload_image', postsController.uploadImg)
 
 module.exports = router;
