@@ -7,11 +7,11 @@ const port = process.env.PORT || 8000;
 
 var app = express();
 
-// mongoose.set('useCreateIndex', true);
-// mongoose.connect('mongodb://admin:baohuynh2009@ds139082.mlab.com:39082/heroku_zclj368x', {
-// 	useNewUrlParser: true
-// });
-// mongoose.Promise = global.Promise;
+mongoose.set('useCreateIndex', true);
+mongoose.connect('mongodb://admin:baohuynh2009@ds139082.mlab.com:39082/heroku_zclj368x', {
+	useNewUrlParser: true
+});
+mongoose.Promise = global.Promise;
 
 let postsRoutes = require('./router/postsRouter');
 let tagsRoutes = require('./router/tagsRouter');
