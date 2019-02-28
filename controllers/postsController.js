@@ -88,7 +88,6 @@ module.exports = {
 			if (err) {
 				return res.send(JSON.stringify(err));
 			}
-			console.log(document.URL);
 			let link = process.env.LINK_UPLOAD || 'http://localhost:8000'
 			data['link'] = `${link}${data['link'].replace("/public",'')}`
 			res.send(data);
