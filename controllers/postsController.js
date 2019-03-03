@@ -28,7 +28,7 @@ module.exports = {
 	// Create posts
 	create: (req, res) => {
 		let posts = new postsModel(req.body);
-		posts.createDate = moment(new Date()).format('DD/MM/YYYY, h:mm:ss');
+		// posts.createDate = moment(new Date()).format('DD/MM/YYYY, h:mm:ss');
 		posts.save().then(result => {
 			res.status(201).json({
 				message: "created posts successfully",
