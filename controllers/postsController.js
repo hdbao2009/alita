@@ -36,7 +36,7 @@ module.exports = {
 				status: 1
 			});
 		}).catch(err => {
-			es.status(500).json({
+			res.status(500).json({
 				message: 'Error when creating posts',
 				error: err
 			});

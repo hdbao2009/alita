@@ -1,9 +1,9 @@
-var express = require('express'),
-	bodyParser = require('body-parser'),
-	mongoose = require('mongoose'),
-	cors = require('cors'),
-	path = require('path');
-const port = process.env.PORT || 8000;
+const express 		= require('express'),
+			bodyParser 	= require('body-parser'),
+			mongoose	 	= require('mongoose'),
+			cors 				= require('cors'),
+			path 				= require('path');
+const port 				= process.env.PORT || 8000;
 
 var app = express();
 
@@ -13,9 +13,11 @@ mongoose.connect('mongodb://admin:baohuynh2009@ds139082.mlab.com:39082/heroku_zc
 });
 mongoose.Promise = global.Promise;
 
-let postsRoutes = require('./router/postsRouter');
-let tagsRoutes = require('./router/tagsRouter');
-let categoryRoutes = require('./router/categoryRouter');
+let verifyAccessToken = require('./controllers/verifyAccessToken');
+let authRoutes 				= require('./router/authRouter');
+let postsRoutes 			= require('./router/postsRouter');
+let tagsRoutes 				= require('./router/tagsRouter');
+let categoryRoutes 		= require('./router/categoryRouter');
 
 var staticDir = express.static(
 	path.resolve(__dirname, 'public')
@@ -28,7 +30,8 @@ app.use(bodyParser.json());
 app.get('/', (req, res) => {
 	res.send("Home");
 });
-
+app.use('/auth', authRoutes);
+app.use(verifyAccessToken);
 app.use('/posts', postsRoutes);
 app.use('/tags', tagsRoutes);
 app.use('/categories', categoryRoutes);
