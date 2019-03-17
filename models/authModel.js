@@ -2,10 +2,9 @@ let mongoose = require('mongoose');
 let schema = mongoose.Schema;
 
 let authModel = new schema({
-    username: {type: String, unique: true},
-    password: {type: String},
-    email: {type: String, unique: true},
-    telephone: {type: Number, unique: true},
+    email: {type: String, required:true, unique: true},
+    password: {type: String, required: true},
+    fullname: {type: String},
     role: {type: Number}
 })
 

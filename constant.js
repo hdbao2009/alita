@@ -1,10 +1,4 @@
-const url = "http://localhost:3000/";
-let EN_POINT = {
-  link: {
-    Posts: url + "posts/",
-    Tags: url + "tags/",
-    Categories: url + "categories/",
-  }
+module.exports = {
+  PRIMARY_KEY: 'ahihi',
+  GOOGLE_DRIVE:'http://drive.google.com/uc?id='
 };
-
-module.exports = EN_POINT;

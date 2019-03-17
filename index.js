@@ -18,6 +18,7 @@ let authRoutes 				= require('./router/authRouter');
 let postsRoutes 			= require('./router/postsRouter');
 let tagsRoutes 				= require('./router/tagsRouter');
 let categoryRoutes 		= require('./router/categoryRouter');
+let uploadFileRouter 	= require('./router/uploadFileRouter');
 
 var staticDir = express.static(
 	path.resolve(__dirname, 'public')
@@ -31,10 +32,11 @@ app.get('/', (req, res) => {
 	res.send("Home");
 });
 app.use('/auth', authRoutes);
-app.use(verifyAccessToken);
-app.use('/posts', postsRoutes);
-app.use('/tags', tagsRoutes);
-app.use('/categories', categoryRoutes);
+
+app.use('/upload', uploadFileRouter)
+app.use('/posts', verifyAccessToken, postsRoutes);
+app.use('/tags', verifyAccessToken, tagsRoutes);
+app.use('/categories', verifyAccessToken, categoryRoutes);
 
 app.listen(port, () => {
 	console.log('ahihi');

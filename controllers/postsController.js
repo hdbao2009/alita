@@ -1,9 +1,9 @@
-let postsModel = require("../models/postsModel");
-let en_point = require("../constant");
-let moment = require('moment');
-let _ = require('lodash');
-let path = require('path')
-const FroalaEditor = require('wysiwyg-editor-node-sdk/lib/froalaEditor');
+let postsModel 			= require("../models/postsModel");
+let en_point 				= require("../constant");
+let moment 					= require('moment');
+let _ 							= require('lodash');
+let path					 	= require('path')
+const FroalaEditor 	= require('wysiwyg-editor-node-sdk/lib/froalaEditor');
 
 module.exports = {
 	// Show list posts
@@ -75,24 +75,6 @@ module.exports = {
 			});
 	},
 
-	upload: function (req, res) {
-		return res.json({
-			msg: "dung roi"
-		});
-	},
-
-	uploadImg: function (req, res) {
-		// Store image.
-		FroalaEditor.Image.upload(req, '/public/uploads/', function (err, data) {
-			// Return data.
-			if (err) {
-				return res.send(JSON.stringify(err));
-			}
-			let link = process.env.LINK_UPLOAD || 'http://localhost:8000'
-			data['link'] = `${link}${data['link'].replace("/public",'')}`
-			res.send(data);
-		});
-	},
 
 	// Update posts by Id
 	updatePostById: (req, res) => {
