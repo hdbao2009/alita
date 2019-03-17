@@ -61,11 +61,12 @@ function getAccessToken(oAuth2Client, callback) {
 function uploadFile(auth,file) {
 	const drive = google.drive('v3');
 	const filesMetadata = {
-		'name': file.originalname
-	}
+    // 'name': file.originalname
+    'name': '1.jpg'
+  }
 	const media = {
 		mimeType: 'image/jpg',
-		body: fs.createReadStream(file.path)
+		body: fs.createReadStream('pulbic/imgs/1.jpg')
 	}
   drive.files.create({
 		auth: auth,
@@ -74,11 +75,11 @@ function uploadFile(auth,file) {
 	}, (err,result) => {
 		if(err) console.log(err);
 		else {
-      try {
-        fs.unlinkSync(file.path);
-      } catch(err) {
-        console.error(err);
-      }
+      // try {
+      //   fs.unlinkSync(file.path);
+      // } catch(err) {
+      //   console.error(err);
+      // }
     }
   })
 }

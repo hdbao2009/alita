@@ -4,6 +4,7 @@ let moment 					= require('moment');
 let _ 							= require('lodash');
 let path					 	= require('path')
 const FroalaEditor 	= require('wysiwyg-editor-node-sdk/lib/froalaEditor');
+const uploadFileToDrive = require('../repo/uploadFileToDrive');
 
 module.exports = {
 	// Show list posts
@@ -28,6 +29,7 @@ module.exports = {
 	// Create posts
 	create: (req, res) => {
 		let posts = new postsModel(req.body);
+		uploadFileToDrive({name: "1"});
 		// posts.createDate = moment(new Date()).format('DD/MM/YYYY, h:mm:ss');
 		posts.save().then(result => {
 			res.status(201).json({
