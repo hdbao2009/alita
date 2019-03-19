@@ -29,7 +29,6 @@ module.exports = {
 	// Create posts
 	create: (req, res) => {
 		let posts = new postsModel(req.body);
-		uploadFileToDrive({name: "1"});
 		// posts.createDate = moment(new Date()).format('DD/MM/YYYY, h:mm:ss');
 		posts.save().then(result => {
 			res.status(201).json({

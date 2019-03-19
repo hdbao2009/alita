@@ -34,9 +34,9 @@ app.get('/', (req, res) => {
 app.use('/auth', authRoutes);
 
 app.use('/upload', uploadFileRouter)
-app.use('/posts', verifyAccessToken, postsRoutes);
-app.use('/tags', verifyAccessToken, tagsRoutes);
-app.use('/categories', verifyAccessToken, categoryRoutes);
+app.use('/posts', postsRoutes);
+app.use('/tags', tagsRoutes);
+app.use('/categories', categoryRoutes);
 
 app.listen(port, () => {
 	console.log('ahihi');
