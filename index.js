@@ -6,11 +6,6 @@ const express 		= require('express'),
 const port 				= process.env.PORT || 8000;
 
 var app = express();
-app.use(function(req, res, next) {
-	res.header("Access-Control-Allow-Origin", "*");
-	res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");    
-	next();
-});
 
 mongoose.set('useCreateIndex', true);
 mongoose.connect('mongodb://admin:baohuynh2009@ds139082.mlab.com:39082/heroku_zclj368x', {
@@ -32,6 +27,12 @@ app.use(staticDir);
 
 app.use(cors());
 app.use(bodyParser.json());
+app.use(function(req, res, next) {
+	res.header('Access-Control-Allow-Origin', "*");
+	res.header('Access-Control-Allow-Methods','GET,PUT,POST,DELETE');
+	res.header('Access-Control-Allow-Headers', 'Content-Type');
+	next();
+})
 
 app.get('/', (req, res) => {
 	res.send("Home");
