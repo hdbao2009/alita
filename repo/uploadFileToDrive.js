@@ -17,11 +17,11 @@ async function readFileFromLocal(fileImage) {
     const drive = google.drive('v3');
 
     const filesMetadata = {
-      'name': fileImage.originalname
+      'name': '59665.jpg'
     }
     const media = {
       mimeType: 'image/jpg',
-      body: fs.createReadStream(fileImage.path)
+      body: fs.createReadStream('public/imgs/59665.jpg')
     }
 
     let result = await drive.files.create({

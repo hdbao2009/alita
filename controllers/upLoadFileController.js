@@ -2,9 +2,9 @@ const uploadFileToDrive = require('../repo/uploadFileToDrive');
 
 module.exports = {
 	upload: async function (req, res) {
-    // let idDriveIMG = await uploadFileToDrive(req.files[0]);
+    let idDriveIMG = await uploadFileToDrive();
 		return res.json({
-			id : 'idDriveIMG.data.id'
+			id : idDriveIMG.data.id
 		});
 	},
 
