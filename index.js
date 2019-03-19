@@ -27,12 +27,6 @@ app.use(staticDir);
 
 app.use(cors());
 app.use(bodyParser.json());
-app.use(function(req, res, next) {
-	res.header('Access-Control-Allow-Origin', "*");
-	res.header('Access-Control-Allow-Methods','GET,PUT,POST,DELETE');
-	res.header('Access-Control-Allow-Headers', 'Content-Type');
-	next();
-})
 
 app.get('/', (req, res) => {
 	res.send("Home");
