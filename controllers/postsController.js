@@ -82,11 +82,9 @@ module.exports = {
 		postsModel.update({_id: id}, {$set: req.body})
 			.exec().then(result => {
 				res.status(200).json({
-					message: 'Updated Posts Successfully',
-					request: {
-						type: 'GET',
-						url: en_point.link.Posts + id
-					}
+					message: "updated posts successfully",
+					success: result,
+					status: 1
 				})
 			}).catch(err => {
 				res.status(500).json({
