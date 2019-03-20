@@ -3,7 +3,6 @@ let en_point 				= require("../constant");
 let moment 					= require('moment');
 let _ 							= require('lodash');
 let path					 	= require('path')
-const FroalaEditor 	= require('wysiwyg-editor-node-sdk/lib/froalaEditor');
 const uploadFileToDrive = require('../repo/uploadFileToDrive');
 
 module.exports = {
