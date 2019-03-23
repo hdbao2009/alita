@@ -13,6 +13,8 @@ app.use(function(req, res, next) {
 	res.setHeader('Access-Control-Allow-Credentials', true);
 	next();
 });
+app.use(cors());
+app.use(bodyParser.json());
 
 mongoose.set('useCreateIndex', true);
 mongoose.connect('mongodb://admin:baohuynh2009@ds139082.mlab.com:39082/heroku_zclj368x', {
@@ -32,8 +34,6 @@ var staticDir = express.static(
 );
 app.use(staticDir);
 
-// app.use(cors());
-app.use(bodyParser.json());
 
 app.get('/', (req, res) => {
 	res.send("Home");
