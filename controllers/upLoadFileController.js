@@ -10,7 +10,11 @@ module.exports = {
 	},
 
 	uploadImgContent: function (req, res) {
+		console.log(res);
+		
 		FroalaEditor.Image.upload(req, '/public/imagePosts/', async function (err, data) {
+			console.log(data);
+			
 			const fileName = data.link.split('/')[3];
 			let customData = {
 				originalname: "postContent_" + fileName,
