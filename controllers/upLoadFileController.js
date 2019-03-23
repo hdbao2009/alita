@@ -9,20 +9,23 @@ module.exports = {
 		});
 	},
 
-	uploadImgContent: async function (req, res) {
-		// console.log(req);
-		// FroalaEditor.Image.upload(req, '/public/imagePosts/', async function (err, data) {
-			// const fileName = data.link.split('/')[3];
-			// let customData = {
-			// 	originalname: fileName,
-			// 	path: data.link.substring(1, data.link.length)
-			// }
-			let idDriveIMGPost = await uploadFileToDrive(req.files[0]);
-			// if (err) {
-			// 	return res.send(JSON.stringify(err));
-			// }
+	uploadImgContent: function (req, res) {
+		FroalaEditor.Image.upload(req, '/public/imagePosts/', async function (err, data) {
+			res.setHeader('Access-Control-Allow-Origin', '*');
+			res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, PATCH, DELETE');
+			res.setHeader('Access-Control-Allow-Headers', 'X-Requested-With,content-type');
+			res.setHeader('Access-Control-Allow-Credentials', true);
+			const fileName = data.link.split('/')[3];
+			let customData = {
+				originalname: fileName,
+				path: data.link.substring(1, data.link.length)
+			}
+			let idDriveIMGPost = await uploadFileToDrive(customData);
+			if (err) {
+				return res.send(JSON.stringify(err));
+			}
 			data['link'] = 'https://drive.google.com/uc?id=' + idDriveIMGPost.data.id
 			res.send(data);
-		// });
+		});
 	}
 }
