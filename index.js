@@ -32,7 +32,7 @@ var staticDir = express.static(
 );
 app.use(staticDir);
 
-app.use(cors());
+// app.use(cors());
 app.use(bodyParser.json());
 
 app.get('/', (req, res) => {
