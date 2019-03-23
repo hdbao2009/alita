@@ -6,13 +6,13 @@ const express 		= require('express'),
 const port 				= process.env.PORT || 8000;
 
 var app = express();
-app.use(function(req, res, next) {
-	req.setHeader('Access-Control-Allow-Origin', '*');
-	req.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, PATCH, DELETE');
-	req.setHeader('Access-Control-Allow-Headers', 'X-Requested-With,content-type');
-	req.setHeader('Access-Control-Allow-Credentials', true);
-	next();
-});
+// app.use(function(req, res, next) {
+// 	req.setHeader('Access-Control-Allow-Origin', '*');
+// 	res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, PATCH, DELETE');
+// 	res.setHeader('Access-Control-Allow-Headers', 'X-Requested-With,content-type');
+// 	res.setHeader('Access-Control-Allow-Credentials', true);
+// 	next();
+// });
 app.use(cors());
 app.use(bodyParser.json());
 
