@@ -4,6 +4,6 @@ const uploadFileController = require('../controllers/upLoadFileController');
 const upload = require('../repo/uploadFileToLocal');
 
 router.post('/imgs',upload.array('file',3), uploadFileController.uploadImgTitle);
-router.post('/upload_image', uploadFileController.uploadImgContent)
+router.post('/upload_image',upload.array('file',3), uploadFileController.uploadImgContent)
 
 module.exports = router;
