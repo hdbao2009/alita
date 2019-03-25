@@ -7,7 +7,7 @@ let postsModel = new schema({
 	content: {type: String , default: null},
 	createDate: {type: String, default: null},
 	imageName: {type: String, default: null},
-	idTags: [],
+	listIdTags: [],
 	idCategory: {type: String},
 	idAuthor: {type: String}
 });

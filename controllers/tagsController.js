@@ -10,20 +10,8 @@ module.exports = {
 			.then(result => {
 				res.status(200).json({
 					count: result.length,
-					message: result > 0 ? 'Get All List Tags' : 'Not List Tags',
-					tags: result.map(tag => {
-						return {
-							tag,
-							requestGET: {
-								type: 'GET',
-								url: en_point.link.Tags + tag._id
-							}, 
-							requestDEL: {
-								type: 'DELETE',
-								url: en_point.link.Tags + tag._id
-							}
-						}
-					})
+					message: result.length > 0 ? 'Get All List Tags' : 'Not List Tags',
+					result
 				})
 			}).catch(err => {
 				res.status(500).json({
@@ -95,13 +83,8 @@ module.exports = {
 		.then(result => {
 			res.status(200).json({
 				message: 'Deleted Tag Successfully',
-				request: {
-					type: 'POST',
-					url: en_point.link.Tags,
-					body: {
-						name: 'String'
-					}
-				}
+				result,
+				status: 1
 			})
 		}).catch(err => {
 			res.status(500).json({

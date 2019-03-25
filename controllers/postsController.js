@@ -1,4 +1,5 @@
 let postsModel 			= require("../models/postsModel");
+let tagsModel 			= require("../models/tagsModel");
 let en_point 				= require("../constant");
 let moment 					= require('moment');
 let _ 							= require('lodash');
@@ -8,11 +9,9 @@ const uploadFileToDrive = require('../repo/uploadFileToDrive');
 module.exports = {
 	// Show list posts
 	list: (req, res, next) => {
-		// 		res.status(200).json({message: "asdsadsa"});
 		postsModel.find()
 			.select()
 			.exec().then(result => {
-
 				const reponse = {
 					posts: result,
 					count: result.length
@@ -26,21 +25,30 @@ module.exports = {
 	},
 
 	// Create posts
-	create: (req, res) => {
+	create: async (req, res) => {
 		let posts = new postsModel(req.body);
-		// posts.createDate = moment(new Date()).format('DD/MM/YYYY, h:mm:ss');
-		posts.save().then(result => {
-			res.status(201).json({
-				message: "created posts successfully",
-				success: result,
-				status: 1
-			});
-		}).catch(err => {
-			res.status(500).json({
-				message: 'Error when creating posts',
-				error: err
-			});
+		const listIdTags = Object.assign([], posts.listIdTags);
+		posts.listIdTags = [];
+		listIdTags.forEach(element => {
+			let tags = new tagsModel({name: element});
+			let data = tags.save();
+			posts.listIdTags.push(data._id);
 		});
+		console.log(posts);
+		
+		// posts.createDate = moment(new Date()).format('DD/MM/YYYY, h:mm:ss');
+		// posts.save().then(result => {
+		// 	res.status(201).json({
+		// 		message: "created posts successfully",
+		// 		success: result,
+		// 		status: 1
+		// 	});
+		// }).catch(err => {
+		// 	res.status(500).json({
+		// 		message: 'Error when creating posts',
+		// 		error: err
+		// 	});
+		// });
 	},
 
 	// Get posts by id

@@ -1,4 +1,5 @@
 const uploadFileToDrive = require('../repo/uploadFileToDrive');
+const config = require('../constant');
 const FroalaEditor 	= require('wysiwyg-editor-node-sdk/lib/froalaEditor');
 
 module.exports = {
@@ -12,7 +13,7 @@ module.exports = {
 	uploadImgContent: async function (req, res) {
 		let data = {};
 		let idDriveIMGPost = await uploadFileToDrive(req.file);
-		data['link'] = 'https://drive.google.com/uc?id=' + idDriveIMGPost.data.id;
+		data['link'] = config.GOOGLE_DRIVE + idDriveIMGPost.data.id;
 		res.send(data);
 	},
 
