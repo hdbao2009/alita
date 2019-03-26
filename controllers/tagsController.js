@@ -78,7 +78,7 @@ module.exports = {
 	// Delete tag by Id
 	deleteTagById: (req, res) => {
 		let id = req.params.id;
-		tagsModel.remove({_id: id})
+		tagsModel.deleteOne({_id: id})
 		.exec()
 		.then(result => {
 			res.status(200).json({

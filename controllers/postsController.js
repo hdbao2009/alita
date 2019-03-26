@@ -26,29 +26,43 @@ module.exports = {
 
 	// Create posts
 	create: async (req, res) => {
-		let posts = new postsModel(req.body);
-		const listIdTags = Object.assign([], posts.listIdTags);
-		posts.listIdTags = [];
-		listIdTags.forEach(element => {
-			let tags = new tagsModel({name: element});
-			let data = tags.save();
-			posts.listIdTags.push(data._id);
-		});
-		console.log(posts);
+		let data;
+		try {
+			const listIdTags = req.body.listIdTags.map(e => ({name: e}));
+			const getListTags = await tagsModel.find();
+			if(getListTags.length > 0) {
+				const getListNotInArray = _.xorBy(getListTags, listIdTags, 'name');
+				console.log(getListNotInArray);
+				
+				// if(getListNotInArray.length > 0) {
+				// 	data = await tagsModel.insertMany(getListNotInArray);
+				// }
+				// console.log(data);
+			} else {
+				data = await tagsModel.insertMany(listIdTags);
+			}
+			
+			// req.body.listIdTags = data;
+			
+			
+			// let posts = new postsModel(req.body);
+			// posts.createDate = moment(new Date()).format('DD/MM/YYYY, h:mm:ss');
+			// posts.save().then(result => {
+			// 	res.status(201).json({
+			// 		message: "created posts successfully",
+			// 		success: result,
+			// 		status: 1
+			// 	});
+			// }).catch(err => {
+			// 	res.status(500).json({
+			// 		message: 'Error when creating posts',
+			// 		error: err
+			// 	});
+			// });
+		} catch (error) {
+			
+		}
 		
-		// posts.createDate = moment(new Date()).format('DD/MM/YYYY, h:mm:ss');
-		// posts.save().then(result => {
-		// 	res.status(201).json({
-		// 		message: "created posts successfully",
-		// 		success: result,
-		// 		status: 1
-		// 	});
-		// }).catch(err => {
-		// 	res.status(500).json({
-		// 		message: 'Error when creating posts',
-		// 		error: err
-		// 	});
-		// });
 	},
 
 	// Get posts by id
@@ -105,7 +119,7 @@ module.exports = {
 	// Delete post by Id
 	deletePostById: (req, res) => {
 		let id = req.params.id;
-		postsModel.remove({
+		postsModel.deleteOne({
 				_id: id
 			})
 			.exec()
