@@ -1,6 +1,6 @@
 let tagsModel = require('../models/tagsModel');
 let postsModel = require('../models/postsModel');
-let en_point = require("../constant");
+let _ = require('lodash');
 
 module.exports = {
 	list: (req, res) => {
@@ -94,32 +94,19 @@ module.exports = {
 		});
 	}, 
 
-	getListPostsbyTagId: (req, res) => {
-		let id = req.params.id;
-		let listFilter = [];
-		postsModel.find().then(posts => {
-			posts.forEach((element,index) => {
-				element.idTags.forEach((e,i) => {
-					if(e.idTag == id) {
-						listFilter.push(element); return;
-					} 
+	getListPostsbyTagId: async (req, res) => {
+		try {
+			let name = req.params.name;
+			const listPostsLean = await postsModel.find().lean();
+			const listPostsExistsIDTags = listPostsLean.filter(e => _.findIndex(e.listIdTags, {"name": name}) !== -1 ? e : null);
+				res.status(200).json({
+					count: listPostsExistsIDTags.length,
+					message: "list posts after filter by Tags name",
+					success: listPostsExistsIDTags
 				})
-			});
-			res.status(200).json({
-				count: listFilter.length,
-				message: "list posts after filter by TagID",
-				success: listFilter.map(result => {
-					return {
-						result,
-						request: { type: 'GET', url: en_point.link.Posts + result._id }
-					}
-				})
-			})
-		}).catch(err=>{
-			res.status(500).json({
-				message: '',
-				error: err
-			});
-		});
+		} catch (error) {
+			res.end()
+			console.error(error);
+		}
 	}
 }
