@@ -26,39 +26,27 @@ module.exports = {
 
 	// Create posts
 	create: async (req, res) => {
-		let data;
 		try {
-			const listIdTags = req.body.listIdTags.map(e => ({name: e}));
-			const getListTags = await tagsModel.find();
-			if(getListTags.length > 0) {
-				const getListNotInArray = _.xorBy(getListTags, listIdTags, 'name');
-				console.log(getListNotInArray);
-				
-				// if(getListNotInArray.length > 0) {
-				// 	data = await tagsModel.insertMany(getListNotInArray);
-				// }
-				// console.log(data);
-			} else {
-				data = await tagsModel.insertMany(listIdTags);
-			}
-			
-			// req.body.listIdTags = data;
-			
-			
-			// let posts = new postsModel(req.body);
-			// posts.createDate = moment(new Date()).format('DD/MM/YYYY, h:mm:ss');
-			// posts.save().then(result => {
-			// 	res.status(201).json({
-			// 		message: "created posts successfully",
-			// 		success: result,
-			// 		status: 1
-			// 	});
-			// }).catch(err => {
-			// 	res.status(500).json({
-			// 		message: 'Error when creating posts',
-			// 		error: err
-			// 	});
-			// });
+			const getAllListTagsInDB = await tagsModel.find();
+			const listIdTagsConvertObject = req.body.listIdTags.map(e => ({name: String(e).toLocaleLowerCase()}));
+			const getListTagsNotExistsInDB = _.differenceBy(listIdTagsConvertObject, getAllListTagsInDB,'name');
+			getListTagsNotExistsInDB.length > 0 ? await tagsModel.insertMany(getListTagsNotExistsInDB) : null;
+			const getListTagsExistsInDB = await tagsModel.find({name: {$in: req.body.listIdTags}});
+			req.body.listIdTags = getListTagsExistsInDB;
+			let posts = new postsModel(req.body);
+			posts.createDate = moment(new Date()).format('DD/MM/YYYY, h:mm:ss');
+			posts.save().then(result => {
+				res.status(201).json({
+					message: "created posts successfully",
+					success: result,
+					status: 1
+				});
+			}).catch(err => {
+				res.status(500).json({
+					message: 'Error when creating posts',
+					error: err
+				});
+			});
 		} catch (error) {
 			
 		}
