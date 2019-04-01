@@ -6,6 +6,7 @@ let _ 							= require('lodash');
 let path					 	= require('path')
 const uploadFileToDrive = require('../repo/uploadFileToDrive');
 const lazyLoadPosts = require('../repo/lazyLoadPosts');
+const checkTags = require('../repo/checkTags');
 
 module.exports = {
 	// Show list posts
@@ -13,30 +14,12 @@ module.exports = {
 		let pages = req.query.pages;
 		pages = pages ? pages.substring(0, pages.length - 1) : 0;
 		return lazyLoadPosts.LoadAll(req, res, +pages);
-		// postsModel.find()
-		// 	.select()
-		// 	.exec().then(result => {
-		// 		const reponse = {
-		// 			posts: result,
-		// 			count: result.length
-		// 		}
-		// 		res.status(200).json(reponse);
-		// 	}).catch(err => {
-		// 		res.status(500).json({
-		// 			error: err
-		// 		})
-		// 	})
 	},
 
 	// Create posts
 	create: async (req, res) => {
 		try {
-			const getAllListTagsInDB = await tagsModel.find();
-			const listIdTagsConvertObject = req.body.listIdTags.map(e => ({name: String(e).toLocaleLowerCase()}));
-			const getListTagsNotExistsInDB = _.differenceBy(listIdTagsConvertObject, getAllListTagsInDB,'name');
-			getListTagsNotExistsInDB.length > 0 ? await tagsModel.insertMany(getListTagsNotExistsInDB) : null;
-			const getListTagsExistsInDB = await tagsModel.find({name: {$in: req.body.listIdTags}});
-			req.body.listIdTags = getListTagsExistsInDB;
+			req.body.listIdTags = await checkTags(req.body.listIdTags);
 			let posts = new postsModel(req.body);
 			posts.createDate = moment(new Date()).format('DD/MM/YYYY, h:mm:ss');
 			posts.save().then(result => {
