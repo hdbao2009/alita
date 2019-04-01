@@ -5,23 +5,27 @@ let moment 					= require('moment');
 let _ 							= require('lodash');
 let path					 	= require('path')
 const uploadFileToDrive = require('../repo/uploadFileToDrive');
+const lazyLoadPosts = require('../repo/lazyLoadPosts');
 
 module.exports = {
 	// Show list posts
-	list: (req, res, next) => {
-		postsModel.find()
-			.select()
-			.exec().then(result => {
-				const reponse = {
-					posts: result,
-					count: result.length
-				}
-				res.status(200).json(reponse);
-			}).catch(err => {
-				res.status(500).json({
-					error: err
-				})
-			})
+	list: (req, res) => {
+		let pages = req.query.pages;
+		pages = pages ? pages.substring(0, pages.length - 1) : 0;
+		return lazyLoadPosts.LoadAll(req, res, +pages);
+		// postsModel.find()
+		// 	.select()
+		// 	.exec().then(result => {
+		// 		const reponse = {
+		// 			posts: result,
+		// 			count: result.length
+		// 		}
+		// 		res.status(200).json(reponse);
+		// 	}).catch(err => {
+		// 		res.status(500).json({
+		// 			error: err
+		// 		})
+		// 	})
 	},
 
 	// Create posts
@@ -48,7 +52,10 @@ module.exports = {
 				});
 			});
 		} catch (error) {
-			
+			res.status(500).json({
+				message: 'Error when creating posts',
+				error: error
+			});
 		}
 		
 	},

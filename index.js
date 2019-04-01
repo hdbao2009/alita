@@ -18,6 +18,7 @@ app.use(bodyParser.json());
 
 mongoose.set('useCreateIndex', true);
 mongoose.connect('mongodb://admin:baohuynh2009@ds139082.mlab.com:39082/heroku_zclj368x', {
+// mongoose.connect('mongodb://localhost:27017/PepsiCoca', {
 	useNewUrlParser: true
 });
 mongoose.Promise = global.Promise;

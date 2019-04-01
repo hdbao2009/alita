@@ -7,7 +7,7 @@ router.post('/register', authController.register);
 router.get('/', authController.list);
 // router.post('/createCategory', authController.create);
 // router.patch('/:id',authController.update);
-// router.delete('/:id', authController.deleteCategoryById);
+router.delete('/:id', authController.delete);
 // router.get('/getListPostsByCateId/:id', authController.getListPostsByCateId);
 
 module.exports = router;
