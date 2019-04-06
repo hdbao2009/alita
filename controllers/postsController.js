@@ -1,14 +1,14 @@
 let postsModel 			= require("../models/postsModel");
 let moment 					= require('moment');
-const lazyLoadPosts = require('../repo/lazyLoadPosts');
+const lazyLoad = require('../repo/lazyLoad');
 const checkTags 		= require('../repo/checkTags');
 
 module.exports = {
 	// Show list posts
 	list: (req, res) => {
 		let pages = req.query.pages;
-		pages = pages ? pages.substring(0, pages.length - 1) : 0;
-		return lazyLoadPosts.LoadAll(req, res, +pages);
+		pages = pages ? pages.substring(0, pages.length - 1) : 1;
+		return lazyLoad.LoadAll(req, res, +pages);
 	},
 
 	// Create posts

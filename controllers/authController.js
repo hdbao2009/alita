@@ -100,5 +100,35 @@ module.exports = {
         error: error
       })
     }
+  },
+
+  update: async (req, res) => {
+    try {
+      let checkAuthor = await authModel.find({_id: req.params.id}).exec();
+      if(checkAuthor.length < 1) {
+        return res.status(401).json({
+          message: 'Auth failed'
+        })
+      }
+      let checkHashPassword = await bcrypt.compare(req.body.passCurrent, checkAuthor[0].password);
+      if (checkHashPassword) {
+        req.body.password = await bcrypt.hash(req.body.password, 10);
+        let doUpdateAuthor = await authModel.update({_id: req.params.id}, {$set: req.body}).exec();
+        return res.status(200).json({
+          doUpdateAuthor,
+          status: 1,
+          message: "Update password completed"
+        })
+      } 
+      res.status(200).json({
+        status: 0,
+        message: "email or password not correct"
+      })
+      
+    } catch (error) {
+      res.status(500).json({
+        error: error
+      })
+    }
   }
 }

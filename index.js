@@ -26,6 +26,7 @@ mongoose.Promise = global.Promise;
 let verifyAccessToken = require('./controllers/verifyAccessToken');
 let authRoutes 				= require('./router/authRouter');
 let postsRoutes 			= require('./router/postsRouter');
+let productRouter 			= require('./router/productRouter');
 let tagsRoutes 				= require('./router/tagsRouter');
 let categoryRoutes 		= require('./router/categoryRouter');
 let uploadFileRouter 	= require('./router/uploadFileRouter');
@@ -43,6 +44,7 @@ app.use('/auth', authRoutes);
 
 app.use('/upload', uploadFileRouter)
 app.use('/posts', postsRoutes);
+app.use('/products', productRouter);
 app.use('/tags', tagsRoutes);
 app.use('/categories', categoryRoutes);
 
