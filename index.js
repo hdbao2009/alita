@@ -2,7 +2,8 @@ const express 		= require('express'),
 			bodyParser 	= require('body-parser'),
 			mongoose	 	= require('mongoose'),
 			cors 				= require('cors'),
-			path 				= require('path');
+			path 				= require('path'),
+			CronJob 		= require('cron').CronJob;
 const port 				= process.env.PORT || 8000;
 
 var app = express();
@@ -22,6 +23,10 @@ mongoose.connect('mongodb://admin:baohuynh2009@ds139082.mlab.com:39082/heroku_zc
 	useNewUrlParser: true
 });
 mongoose.Promise = global.Promise;
+
+new CronJob('* * */7 * * *', function() {
+  console.log('You will see this message every second');
+}, null, true, 'America/Los_Angeles');
 
 let verifyAccessToken = require('./controllers/verifyAccessToken');
 let authRoutes 				= require('./router/authRouter');
