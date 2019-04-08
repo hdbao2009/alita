@@ -40,11 +40,11 @@ module.exports = {
           message: 'Auth failed'
         })
       }
-      let checkHashPassword = await bcrypt.compare(req.body.password, user[0].password);
+      let checkHashPassword = await bcrypt.compare(req.body.password, checkAuthorExistsOnDB[0].password);
       if(checkHashPassword) {
         const token = jwt.sign({
-          email: user[0].email,
-          _id: user[0]._id
+          email: checkAuthorExistsOnDB[0].email,
+          _id: checkAuthorExistsOnDB[0]._id
         }, 
         config.PRIMARY_KEY, 
         {algorithm: 'HS256'}

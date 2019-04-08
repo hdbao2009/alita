@@ -13,8 +13,7 @@ const handleGetPointRate = (data) => {
 module.exports = {
   list: async (req, res) => {
     let pages = req.query.pages;
-
-		pages = pages ? pages.substring(0, pages.length - 1) : 1;
+    pages = pages ? pages.substring(0, pages.length - 1) : 1;
 		return lazyLoad.LoadAll(req, res, +pages, 'products');
   },
 
@@ -77,17 +76,19 @@ module.exports = {
       const location = _.findIndex(getProduct.listRate, (o) => (o.idAuthor == req.body.idAuthor));
       if (location !== -1) {
         getProduct.listRate[location].rate = req.body.rate;
-        let updatedRate = await handleGetPointRate(getProduct);
+        let updated = await getProduct.save();
+        // let updatedRate = await handleGetPointRate(getProduct);
         return res.status(200).json({
-          updatedRate,
+          updated,
           status: 1,
           messages: "Updated current rate product"
         })
       }
       getProduct.listRate.push(req.body);
-      let updatedRate = await handleGetPointRate(getProduct);
+      let updated = await getProduct.save();
+      // let updatedRate = await handleGetPointRate(getProduct);
       res.status(200).json({
-        updatedRate,
+        updated,
         status: 1,
         messages: "Updated new rate product"
       })
